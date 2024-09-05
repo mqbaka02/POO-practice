@@ -5,8 +5,10 @@ use GuzzleHttp\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
-class App {
-    public function run(ServerRequestInterface $request): ResponseInterface {
+class App
+{
+    public function run(ServerRequestInterface $request): ResponseInterface
+    {
         $uri= $request->getUri()->getPath();
         if (!empty($uri) && $uri[-1] === "/") {
             $response= new Response();
@@ -15,7 +17,7 @@ class App {
             return $response;
         }
 
-        if($uri=== '/blog'){
+        if ($uri=== '/blog') {
             return (new Response(200, [], '<h1>Welcome</h1>'));
         }
 

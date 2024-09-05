@@ -5,9 +5,11 @@ use Framework\App;
 use GuzzleHttp\Psr7\ServerRequest;
 use PHPUnit\Framework\TestCase;
 
-class AppTest extends TestCase {
+class AppTest extends TestCase
+{
 
-    public function testRedirectTrailingSlash() {
+    public function testRedirectTrailingSlash()
+    {
         $app= new App();
         $request= new ServerRequest('GET', '/some-slug/');
         $response= $app->run($request);
@@ -15,7 +17,8 @@ class AppTest extends TestCase {
         $this->assertEquals('301', $response->getStatusCode());
     }
 
-    public function testBlog() {
+    public function testBlog()
+    {
         $app= new App();
         $request= new ServerRequest('GET', '/blog');
         $response= $app->run($request);
@@ -23,7 +26,8 @@ class AppTest extends TestCase {
         $this->assertEquals(200, $response->getStatusCode());
     }
 
-    public function testError404() {
+    public function testError404()
+    {
         $app= new App();
         $request= new ServerRequest('GET', '/azaz');
         $response= $app->run($request);
