@@ -7,7 +7,6 @@ use PHPUnit\Framework\TestCase;
 
 class AppTest extends TestCase
 {
-
     public function testRedirectTrailingSlash()
     {
         $app= new App();
