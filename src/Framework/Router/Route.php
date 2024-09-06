@@ -7,11 +7,33 @@ namespace Framework\Router;
 class Route
 {
     /**
+     * @var string
+     */
+    private $name;
+
+    /**
+     * @var callable
+     */
+    private $callback;
+
+    /**
+     * @var array
+     */
+    private $params;
+
+    public function __construct(string $name, callable $callback, array $params)
+    {
+        $this->name= $name;
+        $this->callback= $callback;
+        $this->params= $params;
+    }
+
+    /**
      * @return string
      */
     public function getName(): string
     {
-        return "";
+        return $this->name;
     }
 
     /**
@@ -19,7 +41,7 @@ class Route
      */
     public function getCallback(): callable
     {
-        return "";
+        return $this->callback;
     }
 
     /**
@@ -28,6 +50,6 @@ class Route
      */
     public function getParams(): array
     {
-        return [];
+        return $this->params;
     }
 }

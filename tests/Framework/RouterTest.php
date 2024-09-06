@@ -1,19 +1,26 @@
 <?php
 namespace Tests\Framework;
 
+use Framework\Router;
 use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Psr7\ServerRequest;
 use PHPUnit\Framework\TestCase;
 
 class RouterTest extends TestCase
 {
-    public function setUp()
+    /**
+     * @var Router
+     */
+    private $router;
+
+    public function setUp(): void
     {
         $this->router= new Router();
     }
 
     public function testGetMethod()
     {
-        $request= new Request('GET', '/blog');
+        $request= new ServerRequest('GET', '/blog');
         $this->router->get('/blog', function () {
             return 'hello';
         }, 'blog');
@@ -24,7 +31,7 @@ class RouterTest extends TestCase
     
     public function testGetMethodIfUrlDoesNotExist()
     {
-        $request= new Request('GET', '/blog');
+        $request= new ServerRequest('GET', '/blog');
         $this->router->get('/azaz', function () {
             return 'hello';
         }, 'blog');
@@ -34,15 +41,31 @@ class RouterTest extends TestCase
     
     public function testGetMethodWithParams()
     {
-        $request= new Request('GET', '/blog/my-slug-8');$this->router->get('/blog', function () {
+        $request= new ServerRequest('GET', '/blog/my-slug-8');
+        $this->router->get('/blog', function () {
             return 'azaz';
-        }, 'blog');
+        }, 'posts');
         $this->router->get('/blog/{slug:[a-z0-9\-]+}-{id:\d+}', function () {
             return 'hello';
         }, 'post.show');
         $route= $this->router->match($request);
         $this->assertEquals('post.show', $route->getName());
         $this->assertEquals('hello', call_user_func_array($route->getCallback(), [$request]));
-        $this->assertEquals(['slug'=> 'my-slug', 'id'=> '8'], $route->getParams);
+        $this->assertEquals(['slug'=> 'my-slug', 'id'=> '8'], $route->getParams());
+        //invalid URL
+        $route= $this->router->match(new ServerRequest('GET', '/blog/my_slug-8'));
+        $this->assertEquals(null, $route);
+    }
+    
+    public function testGenerateUri()
+    {
+        $this->router->get('/blog', function () {
+            return 'azaz';
+        }, 'posts');
+        $this->router->get('/blog/{slug:[a-z0-9\-]+}-{id:\d+}', function () {
+            return 'hello';
+        }, 'post.show');
+        $uri= $this->router->generateUri('post.show', ['slug'=> 'my-article', 'id'=> 18]);
+        $this->assertEquals('/blog/my-article-18', $uri);
     }
 }
