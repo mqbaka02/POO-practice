@@ -14,11 +14,11 @@ class App
      * App constructor
      * @param string[] $modules List of the modules to load.
      */
-    public function __construct(?array $modules = [])
+    public function __construct(?array $modules = [], array $dependencies = [])
     {
         $this->router= new Router();
         foreach ($modules as $module) {
-            $this->modules= new $module($this->router);
+            $this->modules= new $module($this->router, $dependencies['renderer']);
         }
     }
 
