@@ -13,7 +13,7 @@ class App
      * App constructor
      * @param string[] $modules List of the modules to load.
      */
-    public function __construct(?array $module = [])
+    public function __construct(?array $modules = [])
     {
         foreach ($modules as $module) {
             $this->modules= new $module();
