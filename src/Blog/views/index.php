@@ -3,7 +3,7 @@
 <h1>Welcome</h1>
 
 <ul>
-    <li>Post 00</li>
+    <li><a href="<?= $router->generateUri('blog.show', ['slug'=> 'random-slug22']); ?>">Post 01</a></li>
     <li>Post 00</li>
     <li>Post 00</li>
     <li>Post 00</li>
