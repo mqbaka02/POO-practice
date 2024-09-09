@@ -7,6 +7,9 @@ use Psr\Http\Message\ServerRequestInterface;
 
 class BlogModule
 {
+    /**
+     * @var RendererInterface
+     */
     private $renderer;
 
     public function __construct(Router $router, RendererInterface $renderer)
