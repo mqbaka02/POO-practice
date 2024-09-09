@@ -1,7 +1,9 @@
 <?php
-namespace Framework;
+namespace Framework\Renderer;
 
-class Renderer
+use Framework\Renderer\RendererInterface;
+
+class PHPRenderer implements RendererInterface
 {
     const DEFAULT_NAMESPACE= '__MAIN';
 
@@ -12,6 +14,13 @@ class Renderer
      * @var array
      */
     private $globals= [];
+
+    public function __construct(?string $default_path = null)
+    {
+        if (!is_null($default_path)) {
+            $this->addPath($default_path);
+        }
+    }
 
     /**
      * Add a path to load the views
