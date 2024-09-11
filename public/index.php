@@ -2,13 +2,23 @@
 require "../vendor/autoload.php";
 
 use App\Blog\BlogModule;
+use DI\ContainerBuilder;
 use Framework\App;
-use Framework\Renderer\PHPRenderer;
-use Framework\Renderer\TwigRenderer;
+use Framework\Renderer\RendererInterface;
+// use Framework\Renderer\PHPRenderer;
+// use Framework\Renderer\TwigRenderer;
 use GuzzleHttp\Psr7\ServerRequest;
 use function Http\Response\send;
 
-$renderer= new TwigRenderer(dirname(__DIR__) . DIRECTORY_SEPARATOR . 'views');
+$builder= new ContainerBuilder();
+$builder->addDefinitions(dirname(__DIR__) . '/config/config.php');
+$builder->addDefinitions(dirname(__DIR__) . '/config.php');
+$container= $builder->build();
+
+// $renderer= new TwigRenderer(dirname(__DIR__) . DIRECTORY_SEPARATOR . 'views');
+$renderer=  $container->get(RendererInterface::class);
+var_dump($renderer);
+die();
 
 $loader= new Twig\Loader\FilesystemLoader(dirname(__DIR__) . DIRECTORY_SEPARATOR . 'views');
 $twig= new Twig\Environment($loader, []);
