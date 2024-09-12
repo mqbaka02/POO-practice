@@ -1,16 +1,40 @@
 <?php
 require "../vendor/autoload.php";
+require "../src/Framework/Renderer/TwigRenderer.php";
 
 use App\Blog\BlogModule;
 use DI\ContainerBuilder;
 use Framework\App;
 use Framework\Renderer\RendererInterface;
+// use Framework\Renderer\TwigRendererFactory;
 // use Framework\Renderer\PHPRenderer;
 // use Framework\Renderer\TwigRenderer;
 use GuzzleHttp\Psr7\ServerRequest;
+
+use function DI\factory;
 use function Http\Response\send;
 
 $builder= new ContainerBuilder();
+$builder->addDefinitions([
+    RendererInterface::class => factory([Framework\Renderer\TwigRendererFactory::class, '__invoke']),
+    // RendererInterface::class => factory('Framework\Renderer\TwigRendererFactory::create'),
+    'views.path'=> dirname(__DIR__) . '/views'
+]);
+
+// $builder->addDefinitions([
+//     RendererInterface::class => factory(function ($container) {
+//         return (new \Framework\Renderer\TwigRendererFactory())->__invoke($container);
+//     }),
+//     'views.path' => dirname(__DIR__) . '/views',
+// ]);
+
+$container= $builder->build();
+$renderer= $container->get(RendererInterface::class);
+var_dump($renderer);
+die();
+
+
+
 $builder->addDefinitions(dirname(__DIR__) . '/config/config.php');
 $builder->addDefinitions(dirname(__DIR__) . '/config.php');
 $container= $builder->build();
