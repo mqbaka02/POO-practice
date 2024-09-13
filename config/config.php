@@ -7,7 +7,11 @@ use function DI\factory;
 use function DI\get;
 
 return [
-    'blog.prefix'=> '/news',
+    // 'blog.prefix'=> '/news',
+    'database.host'=> 'localhost',
+    'database.username'=> 'root',
+    'database.password'=> '',
+    'database.name'=> 'my_super_site',
     'twig.extensions' => [
         get(RouterTwigExtension::class)
     ],

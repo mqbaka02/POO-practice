@@ -1,5 +1,5 @@
 <?php
-require "../vendor/autoload.php";
+require dirname(__DIR__) . "/vendor/autoload.php";
 
 use App\Blog\BlogModule;
 use DI\ContainerBuilder;
@@ -12,9 +12,7 @@ $modules= [
 ];
 
 $builder= new ContainerBuilder();
-
 $builder->addDefinitions(dirname(__DIR__) . '/config/config.php');
-
 foreach ($modules as $module) {
     if ($module::DEFINITIONS) {
         $builder->addDefinitions(($module::DEFINITIONS));
@@ -23,11 +21,14 @@ foreach ($modules as $module) {
 
 $builder->addDefinitions(dirname(__DIR__) . '/config.php');
 $container= $builder->build();
-// $renderer= new TwigRenderer(dirname(__DIR__) . DIRECTORY_SEPARATOR . 'views');
 
-$loader= new Twig\Loader\FilesystemLoader(dirname(__DIR__) . DIRECTORY_SEPARATOR . 'views');
-$twig= new Twig\Environment($loader, []);
+// $renderer= new TwigRenderer(dirname(__DIR__) . DIRECTORY_SEPARATOR . 'views');
+// $loader= new Twig\Loader\FilesystemLoader(dirname(__DIR__) . DIRECTORY_SEPARATOR . 'views');
+// $twig= new Twig\Environment($loader, []);
 
 $app= new App($container, $modules);
-$response= $app->run(ServerRequest::fromGlobals());
-send($response);
+if (php_sapi_name() !== "cli") {
+    // throw new Exception();
+    $response= $app->run(ServerRequest::fromGlobals());
+    send($response);
+}

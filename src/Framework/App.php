@@ -61,4 +61,13 @@ class App
             throw new \Exception("Unknown response format, not a string nor a ResponseInterface");
         }
     }
+    
+    /**
+     * Getter for the container.
+     * @return ContainerInterface
+     */
+    public function getContainer(): ContainerInterface
+    {
+        return $this->container;
+    }
 }
