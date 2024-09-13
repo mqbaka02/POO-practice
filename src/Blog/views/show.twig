@@ -1,18 +1,11 @@
 {% extends 'layout.twig' %}
 
-{% block title "The posts" %}
+{% block title post.name %}
 
 {% block body %}
 
-<h1>Post {{ slug }}</h1>
+<h1>{{ post.name }}</h1>
 
-{# <ul>
-    <li><a href="<?= $router->generateUri('blog.show', ['slug'=> 'random-slug22']); ?>">Post 01</a></li>
-    <li>Post 00</li>
-    <li>Post 00</li>
-    <li>Post 00</li>
-    <li>Post 00</li>
-    <li>Post 00</li>
-</ul> #}
+{{ post.content|nl2br }}
 
 {% endblock %}
