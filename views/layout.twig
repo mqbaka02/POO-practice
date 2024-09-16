@@ -24,5 +24,10 @@
             Generated the page in <?= round((microtime(true) - microtime(true)) * 1000) ?>ms.
         <?php endif ?> #}
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/timeago.js/2.0.2/timeago.min.js" integrity="sha512-sl01o/gVwybF1FNzqO4NDRDNPJDupfN0o2+tMm4K2/nr35FjGlxlvXZ6kK6faa9zhXbnfLIXioHnExuwJdlTMA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/timeago.js/2.0.2/timeago.locales.min.js" integrity="sha512-Ern3V9KogyU2Y8PxtQPiKB5A2piG0jCZJ0Rmd9g1aWwk7JwRcfUVkIkW3M7CjoCFMqWtXMUmurTa2dSrdtaZLg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        timeago().render(document.querySelectorAll('.timeago'), 'en');
+    </script>
 </body>
 </html>

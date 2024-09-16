@@ -253,10 +253,45 @@ input.is-invalid{
 	border: 1px solid #000;
 	border-radius: 3px;
 } */
- textarea{
+textarea{
 	padding: .5em 1em;
 	height: 200px;
- }
+}
+
+.pagination{
+	display: flex;
+	width: 100%;
+	list-style-type: none;
+}
+
+.page-link .sr-only{
+	display: none;
+}
+
+.page-item{
+	cursor: pointer;
+	color: var(--primary);
+	border-radius: 5px;
+	transition: .3s;
+}
+
+.page-item:hover{
+	background-color: var(--primary);
+}
+.page-item:hover .page-link{
+	color: var(--white);
+}
+
+.page-item .page-link{
+	padding: .5em 1em;
+	text-decoration: none;
+	display: block;
+}
+
+.page-item.active{
+	color: var(--white);
+	background-color: var(--primary);
+}
 
 @media only screen and (max-width: 950px){
 	.col-md-3 {

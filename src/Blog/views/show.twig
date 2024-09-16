@@ -6,6 +6,11 @@
 
 <h1>{{ post.name }}</h1>
 
-{{ post.content|nl2br }}
+
+<p class="txt-muted">
+    {{ post.created_at | ago }}
+</p>
+
+{{ post.content | nl2br }}
 
 {% endblock %}

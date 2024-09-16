@@ -3,7 +3,8 @@ use Framework\Renderer\RendererInterface;
 use Framework\Renderer\TwigRendererFactory;
 use Framework\Router\RouterTwigExtension;
 use Framework\Twig\PagerFantaExtension as TwigPagerFantaExtension;
-use Pagerfanta\Twig\Extension\PagerfantaExtension;
+use Framework\Twig\TextExtension;
+use Framework\Twig\TimeExtension;
 use Psr\Container\ContainerInterface;
 
 use function DI\create;
@@ -18,7 +19,9 @@ return [
     'database.name'=> 'my_super_site',
     'twig.extensions' => [
         get(RouterTwigExtension::class),
-        get(TwigPagerFantaExtension::class)
+        get(TwigPagerFantaExtension::class),
+        get(TextExtension::class),
+        get(TimeExtension::class)
     ],
     'views.path'=> dirname(__DIR__) . '/views',
     \Framework\Router::class=> create(),

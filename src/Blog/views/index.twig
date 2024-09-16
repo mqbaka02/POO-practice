@@ -3,16 +3,35 @@
 {% block title "The posts" %}
 
 {% block body %}
+
     <h1>Welcome in the Blog</h1>
-    <ul>
-        {% for post in posts %}
-            <li>
-                <a href="{{ path('blog.show', {slug: post.slug, id: post.id}) }}">
-                    {{ post.name }}
-                </a>
-            </li>
-        {% endfor %}
-    </ul>
+
+<div class="row">
+    {% for post in posts %}
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">
+                        <a href="{{ path('blog.show', {slug: post.slug, id: post.id}) }}">
+                            {{ post.name }}
+                        </a>
+                    </h4>
+                    <p class="txt-muted">
+                    {{ post.created_at | ago }}
+                    </p>
+                    {# <div class="labels">
+                    {{category labels}}
+                    </div> #}
+                    <p class="p-content">
+                        {{ post.content | nl2br | exerpt }}
+                    </p>
+                    <p><a href="{{ path('blog.show', {slug: post.slug, id: post.id}) }}" class="btn url">Read more</a></p>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
 
     {{ paginate(posts, 'blog.index') }}
+
 {% endblock %}

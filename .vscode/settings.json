@@ -1,3 +1,7 @@
 {
-    "phpcs.standard": "${workspaceFolder}/ruleset.xml"
+    "phpcs.standard": "${workspaceFolder}/ruleset.xml",
+    "emmet.includeLanguages": {
+    "twig": "html"
+    },
+    "phpSniffer.autoDetect": true
 }
