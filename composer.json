@@ -30,6 +30,7 @@
         "twig/twig": "^3.11",
         "php-di/php-di": "^6.4",
         "robmorgan/phinx": "^0.14.0",
-        "fzaninotto/faker": "^1.9"
+        "fzaninotto/faker": "^1.9",
+        "pagerfanta/pagerfanta": "^3.8"
     }
 }
