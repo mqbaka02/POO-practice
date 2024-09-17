@@ -1,0 +1,14 @@
+{% extends '@admin/layout.twig' %}
+
+{% block title "Create post" %}
+
+{% block body %}
+
+    <h1>Add post</h1>
+
+    <form action="{{ path('blog.admin.create') }}" method="post">
+    {% include "@blog/admin/form.twig" %}
+    <button class="btn prm" type="submit">Save</button>
+    </form>
+
+{% endblock %}

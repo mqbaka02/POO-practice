@@ -6,21 +6,9 @@
 
     <h1>Edit post {{ item.name }}</h1>
 
-    <form action="{{ path('admin.blog.edit', {id: item.id}) }}" method="post">
-    <div class="form-grp">
-        <label for="name">Post Title</label>
-        <input type="text" class="form-ctrl" name="name" id="name" value="{{ item.name }}">
-    </div>
-    <div class="form-grp">
-        <label for="slug">Post slug</label>
-        <input type="text" class="form-ctrl" name="slug" id="slug" value="{{ item.slug }}">
-    </div>
-    <div class="form-grp">
-        <label for="content">Content</label>
-        <textarea {#class="form-ctrl"#} name="content" id="content">
-        {{ item.content }}</textarea>
-    </div>
-    <button class="btn prm" type="submit">Save</button>
+    <form action="{{ path('blog.admin.edit', {id: item.id}) }}" method="post">
+    {% include '@blog/admin/form.twig' %}
+        <button class="btn prm" type="submit">Save</button>
     </form>
 
 {% endblock %}

@@ -21,9 +21,9 @@ class TextExtension extends AbstractExtension
      * Returns an exerpt of a given string
      * @var string $content The text to conmpress
      * @var integer $maxlength The max length allowed
-     * @return string
+     * @return string|null
      */
-    public function exerpt(string $content, int $maxlength = 100): string
+    public function exerpt(string $content, int $maxlength = 100): ?string
     {
         if (mb_strlen($content) > $maxlength) {
             $exerpt= mb_substr($content, 0, $maxlength);

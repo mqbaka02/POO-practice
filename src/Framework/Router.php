@@ -42,11 +42,23 @@ class Router
     }
 
     /**
+     * @param string $path
+     * @param string|callable $callable
+     * @param string|null $name
+     */
+    public function delete(string $path, $callable, ?string $name = null)
+    {
+        $this->router->addRoute(new ZendRoute($path, $callable, ['DELETE'], $name));
+    }
+
+    /**
      * @param ServerRequestInterface $request
      * @return Route|null
      */
     public function match(ServerRequestInterface $request): ?Route
     {
+        // var_dump($request);
+        // die();
         $result= $this->router->match($request);
         if ($result->isSuccess()=== true) {
             return new Route(

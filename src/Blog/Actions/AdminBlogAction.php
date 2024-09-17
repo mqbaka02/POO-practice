@@ -29,13 +29,19 @@ class AdminBlogAction
 
     public function __construct(RendererInterface $renderer, Router $router, PostTable $postTable)
     {
-        $this->postTable= $postTable;
         $this->renderer= $renderer;
         $this->router= $router;
+        $this->postTable= $postTable;
     }
 
     public function __invoke(ServerRequestInterface $request)
     {
+        if ($request->getMethod() === 'DELETE') {
+            return 'hello';
+        }
+        if (substr((string)$request->getUri(), -3) === 'new') {
+            return $this->create($request);
+        }
         if ($request->getAttribute('id')) {
             return $this->edit($request);
         } else {
@@ -59,13 +65,39 @@ class AdminBlogAction
         $item= $this->postTable->find($request->getAttribute('id'));
 
         if ($request->getMethod() === 'POST') {
-            $params= array_filter($request->getParsedBody(), function ($key) {
-                return in_array($key, ['name', 'content', 'slug']);
-            }, ARRAY_FILTER_USE_KEY);
+            $params= $this->getParams($request);
+            $params= array_merge($params, [
+                'updated_at'=> date('Y-m-d H:i:s')
+            ]);
             $this->postTable->update($item->id, $params);
             return $this->redirect('blog.admin.index');
         }
-
         return $this->renderer->render('@blog/admin/edit', compact('item'));
+    }
+
+    /**
+     * Creates a new post.
+     * @param ServerRequestInterface $request
+     * @return ServerRequestInterface|string
+     */
+    public function create(ServerRequestInterface $request)
+    {
+        if ($request->getMethod() === 'POST') {
+            $params= $this->getParams($request);
+            $params= array_merge($params, [
+                'updated_at'=> date('Y-m-d H:i:s'),
+                'created_at'=> date('Y-m-d H:i:s')
+            ]);
+            $this->postTable->insert($params);
+            return $this->redirect('blog.admin.index');
+        }
+        return $this->renderer->render('@blog/admin/create');
+    }
+
+    private function getParams(ServerRequestInterface $request)
+    {
+        return array_filter($request->getParsedBody(), function ($key) {
+            return in_array($key, ['name', 'content', 'slug']);
+        }, ARRAY_FILTER_USE_KEY);
     }
 }

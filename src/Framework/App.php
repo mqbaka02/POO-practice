@@ -33,6 +33,12 @@ class App
     public function run(ServerRequestInterface $request): ResponseInterface
     {
         $uri= $request->getUri()->getPath();
+        $parsedBody= $request->getParsedBody();
+        // var_dump($parsedBody['_method']);
+        // die();
+        if (array_key_exists('_method', $parsedBody) && in_array($parsedBody, ['DELETE', 'PUT'])) {
+            $request= $request->withMethod($parsedBody['_method']);
+        }
         if (!empty($uri) && $uri[-1] === "/") {
             $response= new Response();
             $response= $response->withStatus(301);

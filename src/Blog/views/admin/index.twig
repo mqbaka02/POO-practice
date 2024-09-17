@@ -5,28 +5,6 @@
 {% block body %}
 
     <h1>Chose a post to edit</h1>
-    {# <div class="row">
-        {% for post in posts %}
-            <div class="col-md-3">
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title">
-                            <a href="{{ path('blog.show', {slug: post.slug, id: post.id}) }}">
-                                {{ post.name }}
-                            </a>
-                        </h4>
-                        <p class="txt-muted">
-                        {{ post.created_at | ago }}
-                        </p>
-                        <p class="p-content">
-                            {{ post.content | nl2br | exerpt }}
-                        </p>
-                        <p><a href="{{ path('blog.show', {slug: post.slug, id: post.id}) }}" class="btn url">Read more</a></p>
-                    </div>
-                </div>
-            </div>
-        {% endfor %}
-    </div> #}
 
     <a href="{{ path('blog.admin.create') }}" class="btn prm">Create new</a>
 
@@ -41,8 +19,13 @@
             {% for item in items %}
                 <tr>
                     <td>{{ item.name }}</td>
-                    <td>
+                    <td class='buttons'>
                         <a href="{{ path('blog.admin.edit', {id:item.id}) }}" class="btn prm">Edit</a>
+                        <a href="{{ path('blog.admin.delete', {id:item.id}) }}" class="btn prm">Edit</a>
+                        <form action="{{ path('blog.admin.delete', {id:item.id}) }}" method="POST">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <button class="btn dng">Delete</button>
+                        </form>
                     </td>
                 </tr>
             {% endfor %}

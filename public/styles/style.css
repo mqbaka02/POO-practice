@@ -293,6 +293,12 @@ textarea{
 	background-color: var(--primary);
 }
 
+td.buttons{
+	display: flex;
+	flex-direction: row;
+	gap: 1em;
+}
+
 @media only screen and (max-width: 950px){
 	.col-md-3 {
 		width: calc(97% / 3);

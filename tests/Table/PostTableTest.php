@@ -48,4 +48,12 @@ class PostTableTest extends DatabaseTestCase
         $this->assertEquals('New Name', $post->name);
         $this->assertEquals('new-slug', $post->slug);
     }
+
+    public function testInsert()
+    {
+        $this->postTable->insert(['name'=> 'NewName', 'slug'=> 'new-slug']);
+        $post= $this->postTable->find(1);
+        $this->assertEquals('NewName', $post->name);
+        $this->assertEquals('new-slug', $post->slug);
+    }
 }

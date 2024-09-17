@@ -17,8 +17,11 @@ class TimeExtension extends AbstractExtension
         ];
     }
 
-    public function ago(DateTime $date, string $format = 'd/m/Y H:i'): string
+    public function ago(?DateTime $date = null, string $format = 'd/m/Y H:i'): ?string
     {
+        if (is_null($date)) {
+            return '';
+        }
         return '<span class="timeago" datetime="' . $date->format(DateTime::ISO8601_EXPANDED) . '">' . $date->format($format) . '</span>';
     }
 }
