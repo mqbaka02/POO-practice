@@ -49,4 +49,20 @@ class PostTable
         $post= $query->fetch()?: null;
         return $post;
     }
+
+    /**
+     * Updates a post with the fields defined in $fields.
+     * @param integer $id
+     * @param array $fields
+     * @return bool
+     */
+    public function update(int $id, array $fields): bool
+    {
+        $fieldsQuery= join(', ', array_map(function ($field) {
+            return "$field= :$field";
+        }, array_keys($fields)));
+        $fields['id']= $id;
+        $statement= $this->pdo->prepare("UPDATE posts SET $fieldsQuery WHERE id= :id");
+        return $statement->execute($fields);
+    }
 }

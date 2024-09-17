@@ -8,7 +8,7 @@ use Framework\Router;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
-class BlogAction
+class AdminBlogAction
 {
     /**
      * @var RendererInterface
@@ -37,7 +37,7 @@ class BlogAction
     public function __invoke(ServerRequestInterface $request)
     {
         if ($request->getAttribute('id')) {
-            return $this->show($request);
+            return $this->edit($request);
         } else {
             return $this->index($request);
         }
@@ -46,27 +46,26 @@ class BlogAction
     public function index(ServerRequestInterface $request): string
     {
         $params= $request->getQueryParams();
-        $posts= $this->postTable->findPaginated(12, $params['p'] ?? 1);
-        return $this->renderer->render('@blog/index', compact('posts'));
+        $items= $this->postTable->findPaginated(12, $params['p'] ?? 1);
+        return $this->renderer->render('@blog/admin/index', compact('items'));
     }
 
     /**
-     * Displays a single post
-     * @param ServerRequestInterface $request
+     * @param ServerRequestInterface
      * @return ResponseInterface|string
      */
-    public function show(ServerRequestInterface $request): string|ResponseInterface
+    public function edit(ServerRequestInterface $request): string|ResponseInterface
     {
-        $slug= $request->getAttribute(('slug'));
-        $post= $this->postTable->find($request->getAttribute('id'));
-        if ($post->slug !== $slug) {
-            return $this->redirect('blog.show', [
-                'slug'=> $post->slug,
-                'id'=> $post->id
-            ]);
+        $item= $this->postTable->find($request->getAttribute('id'));
+
+        if ($request->getMethod() === 'POST') {
+            $params= array_filter($request->getParsedBody(), function ($key) {
+                return in_array($key, ['name', 'content', 'slug']);
+            }, ARRAY_FILTER_USE_KEY);
+            $this->postTable->update($item->id, $params);
+            return $this->redirect('blog.admin.index');
         }
-        return $this->renderer->render('@blog/show', [
-            'post' => $post
-        ]);
+
+        return $this->renderer->render('@blog/admin/edit', compact('item'));
     }
 }

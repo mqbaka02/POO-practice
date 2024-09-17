@@ -1,0 +1,54 @@
+{% extends '@admin/layout.twig' %}
+
+{% block title "Edit posts" %}
+
+{% block body %}
+
+    <h1>Chose a post to edit</h1>
+    {# <div class="row">
+        {% for post in posts %}
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">
+                            <a href="{{ path('blog.show', {slug: post.slug, id: post.id}) }}">
+                                {{ post.name }}
+                            </a>
+                        </h4>
+                        <p class="txt-muted">
+                        {{ post.created_at | ago }}
+                        </p>
+                        <p class="p-content">
+                            {{ post.content | nl2br | exerpt }}
+                        </p>
+                        <p><a href="{{ path('blog.show', {slug: post.slug, id: post.id}) }}" class="btn url">Read more</a></p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div> #}
+
+    <a href="{{ path('blog.admin.create') }}" class="btn prm">Create new</a>
+
+    <table class="striped pad1">
+        <thead>
+            <tr>
+                <td>Title</td>
+                <td>Actions</td>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in items %}
+                <tr>
+                    <td>{{ item.name }}</td>
+                    <td>
+                        <a href="{{ path('blog.admin.edit', {id:item.id}) }}" class="btn prm">Edit</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    {{ paginate(items, 'blog.admin.index') }}
+
+{% endblock %}
