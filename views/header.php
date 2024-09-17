@@ -11,7 +11,7 @@
     </style>
 <body>
     <nav class="pd20 xt lg bg-prm">
-        <a href="/" class="nav-brand">The Site</a>
+        <a href="/news" class="nav-brand">The Site</a>
         <ul class="navbar-nav">
             <li class="nav-item"><a href="#" class="nav-link">Admin</a></li>
         </ul>
