@@ -45,15 +45,16 @@ return
             // 'port' => '3306',
             // 'charset' => 'utf8',
         ],
-        // 'testing' => [
-        //     'adapter' => 'mysql',
-        //     'host' => 'localhost',
-        //     'name' => 'testing_db',
-        //     'user' => 'root',
-        //     'pass' => '',
-        //     'port' => '3306',
-        //     'charset' => 'utf8',
-        // ]
+        'testing' => [
+            'adapter' => 'sqlite',
+            'memory' => true,
+            // 'host' => 'localhost',
+            // 'user' => 'root',
+            // 'pass' => '',
+            // 'port' => '3306',
+            // 'charset' => 'utf8',
+            'name' => 'testing_db'
+        ]
     ],
     // 'version_order' => 'creation'
 ];
