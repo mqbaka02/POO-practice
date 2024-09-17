@@ -15,6 +15,11 @@ class DatabaseTestCase extends TestCase
      */
     protected $pdo;
 
+    /**
+     * @var Manager
+     */
+    private $manager;
+
     public function setUp(): void
     {
         $pdo= new PDO('sqlite::memory:', null, null, [
@@ -29,9 +34,19 @@ class DatabaseTestCase extends TestCase
         $config= new Config($configArray);
         $manager= new Manager($config, new StringInput(''), new NullOutput());
         $manager->migrate('testing');
-        $manager->seed('testing');
+        $this->manager= $manager;
+        // if ($this->seeds) {
+        //     $manager->seed('testing');
+        // }
         $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
 
         $this->pdo= $pdo;
+    }
+
+    public function seedDatabase()
+    {
+        $this->pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_BOTH);
+        $this->manager->seed('testing');
+        $this->pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
     }
 }

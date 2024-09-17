@@ -16,17 +16,27 @@ class PostTableTest extends DatabaseTestCase
     {
         parent::setUp();
         $this->postTable= new PostTable($this->pdo);
+        //$this->pdo->beginTransaction();//Make sure to avoid persisting the data after each test
     }
+
+    /**
+     * Called after every test
+     */
+    //public function tearDown(): void
+    //{
+        //$this->pdo->rollBack();//Resets the state of the pdo after the test
+    //}
 
     public function testFind()
     {
+        $this->seedDatabase();
         $post= $this->postTable->find(1);
         $this->assertInstanceOf(Post::class, $post);
     }
 
     public function testFindNotFoundRecord()
     {
-        $post= $this->postTable->find(1000000);
+        $post= $this->postTable->find(1);
         $this->assertNull($post);
     }
 }
