@@ -31,6 +31,9 @@ $container= $builder->build();
 $app= new App($container, $modules);
 if (php_sapi_name() !== "cli") {
     // throw new Exception();
+    // var_dump(ServerRequest::fromGlobals());
+    // echo "=====================</br>";
+    // var_dump(ServerRequest::fromGlobals()->getParsedBody());
     $response= $app->run(ServerRequest::fromGlobals());
     send($response);
 }

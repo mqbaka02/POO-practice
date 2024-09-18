@@ -34,8 +34,9 @@ class App
     {
         $uri= $request->getUri()->getPath();
         $parsedBody= $request->getParsedBody();
-        // var_dump($parsedBody['_method']);
+        // var_dump($request->getParsedBody());
         // die();
+        // $request= $request->withMethod('DELETE');
         if (array_key_exists('_method', $parsedBody) && in_array($parsedBody, ['DELETE', 'PUT'])) {
             $request= $request->withMethod($parsedBody['_method']);
         }

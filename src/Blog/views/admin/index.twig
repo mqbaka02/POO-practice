@@ -20,10 +20,11 @@
                 <tr>
                     <td>{{ item.name }}</td>
                     <td class='buttons'>
-                        <a href="{{ path('blog.admin.edit', {id:item.id}) }}" class="btn prm">Edit</a>
-                        <a href="{{ path('blog.admin.delete', {id:item.id}) }}" class="btn prm">Edit</a>
-                        <form action="{{ path('blog.admin.delete', {id:item.id}) }}" method="POST">
-                            <input type="hidden" name="_method" value="DELETE">
+                        <a href="{{ path('blog.admin.edit', {id: item.id}) }}" class="btn prm">Edit</a>
+                        <a href="{{ path('blog.admin.delete', {id: item.id}) }}" class="btn prm">Edit</a>
+                        {# <form action="{{ path('blog.admin.delete', {id: item.id}) }}" method="POST"> #}
+                        <form action="http://localhost:8000/news" method="POST">
+                            <input type="hidden" name="00" value="00">
                             <button class="btn dng">Delete</button>
                         </form>
                     </td>

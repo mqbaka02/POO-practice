@@ -32,7 +32,7 @@ class BlogModule extends Module
             $router->get("$prefix/posts/{id:\d+}", AdminBlogAction::class, 'blog.admin.edit');
             $router->post("$prefix/posts/{id:\d+}", AdminBlogAction::class);
             // $router->delete("tay", AdminBlogAction::class, 'blog.admin.delete');
-            $router->delete("$prefix/posts/{id:\d+}", AdminBlogAction::class, 'blog.admin.delete');
+            $router->post("$prefix/posts/delete/{id:\d+}", AdminBlogAction::class, 'blog.admin.delete');
         }
     }
 }

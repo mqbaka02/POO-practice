@@ -36,6 +36,8 @@ class AdminBlogAction
 
     public function __invoke(ServerRequestInterface $request)
     {
+        // var_dump($request->getMethod());
+        // die();
         if ($request->getMethod() === 'DELETE') {
             return 'hello';
         }
